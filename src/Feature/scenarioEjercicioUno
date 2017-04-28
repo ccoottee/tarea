@@ -1,0 +1,44 @@
+Feature: Login
+	Iniciar sesión en el sitio www.linkedin.com
+
+	Scenario: Validar formato correo electrónico
+		Given Dado que he ingresado un correo con formato incorrecto
+		And	He ingresado una contraseña
+		When Presiono iniciar sesión	
+		Then Se visualiza mensaje indicando que correo no es válido
+
+	Scenario: Validar contraseña
+		Give Dado que he ingresado contraseña incorrecta
+		And He ingresado el correo valido habilitado en linkedin
+		When Presiono iniciar sesión
+		Then Se visualiza mensaje indicando que contraseña es incorrecta
+
+	Scenario: Validar correo formato valido pero no pertenece a linkedin
+		Give Dado que he ingresado correo con formato valido pero no pertenece a linkedin
+		And He ingresado una contraseña
+		When Presiono iniciar sesión
+		Then Se visualiza mensaje indicando que no se reconoce el correo electrónico
+
+	Scenario: Validar correo electrónico campo obligatorio
+		Give Dado que he dejado el campo correo electronico en blanco
+		And He ingresado una contraseña
+		When Presionar iniciar sesión
+		Then No se puede iniciar sesión, no se habilita botón
+
+	Scenario: Validar contraseña campo obligatorio
+		Give Dado que he dejado el campo contraseña en blanco
+		And He ingresado un correo valido en linkedin
+		When Presionar iniciar sesión
+		Then No se puede iniciar sesión, no se habilita botón
+
+	Scenario Validar largo correo
+		Give Dado que he ingresado mas de 128 caracteres
+		And He ingresado una contraseña
+		When Presionar iniciar sesión
+		Then Se visualiza mensaje indicando no puede exceder de los 128 caracteres
+
+	Scenario Iniciar sesión
+		Give Dado que he ingresado un correo registrado
+		And He ingresado la contraseña asociada al correo
+		When Presionar iniciar sesión
+		Then Se inicia sesión en linkedin
